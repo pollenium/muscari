@@ -1,0 +1,39 @@
+{
+  "name": "pollenium-muscari",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "start": "forever --watch node/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pollenium/muscari.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pollenium/muscari/issues"
+  },
+  "homepage": "https://github.com/pollenium/muscari#readme",
+  "devDependencies": {
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@types/node": "^13.1.8",
+    "ethers": "^4.0.43",
+    "isomorphic-ws": "^4.0.1",
+    "pollenium-anemone": "^7.1.0",
+    "pollenium-bellflower": "^3.0.0",
+    "pollenium-buttercup": "^18.4.0",
+    "pollenium-ilex": "^9.0.0",
+    "pollenium-orchid": "^10.0.0",
+    "pollenium-uvaursi": "^8.5.0",
+    "tiny-worker": "^2.3.0",
+    "wrtc": "^0.4.3",
+    "ws": "^7.2.1"
+  }
+}
