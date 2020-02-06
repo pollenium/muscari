@@ -25,15 +25,12 @@
   "dependencies": {
     "@types/node": "^13.1.8",
     "ethers": "^4.0.43",
-    "isomorphic-ws": "^4.0.1",
+    "forever": "^2.0.0",
     "pollenium-anemone": "^7.1.0",
     "pollenium-bellflower": "^3.0.0",
     "pollenium-buttercup": "^18.4.0",
     "pollenium-ilex": "^9.0.0",
     "pollenium-orchid": "^10.0.0",
-    "pollenium-uvaursi": "^8.5.0",
-    "tiny-worker": "^2.3.0",
-    "wrtc": "^0.4.3",
-    "ws": "^7.2.1"
+    "pollenium-uvaursi": "^8.5.0"
   }
 }
