@@ -24,13 +24,14 @@
   },
   "dependencies": {
     "@types/node": "^13.1.8",
+    "delay": "^4.3.0",
     "ethers": "^4.0.43",
     "forever": "^2.0.0",
-    "pollenium-anemone": "^7.1.0",
+    "pollenium-anemone": "^7.1.1",
     "pollenium-bellflower": "^3.0.0",
     "pollenium-buttercup": "^18.4.0",
     "pollenium-ilex": "^9.0.0",
-    "pollenium-orchid": "^10.0.0",
+    "pollenium-orchid": "^11.0.0",
     "pollenium-uvaursi": "^8.5.0"
   }
 }

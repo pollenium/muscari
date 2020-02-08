@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,6 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var pollenium_bellflower_1 = require("pollenium-bellflower");
 var ethers_1 = require("ethers");
@@ -54,64 +46,78 @@ var pollenium_orchid_1 = require("pollenium-orchid");
 var pollenium_ilex_1 = require("pollenium-ilex");
 var pollenium_anemone_1 = require("pollenium-anemone");
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
+var params_1 = require("./params");
+var delay_1 = __importDefault(require("delay"));
 var infuraId = 'd2f248c0dbf64edc9a11447262bfe239';
 var daiHex = '6B175474E89094C44Da98b954EedeAC495271d0F';
 var usdcHex = 'a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
 var keypair = pollenium_ilex_1.Keypair.generate();
-var applicationId = pollenium_uvaursi_1.Uu.fromUtf8('alchemilla.orders.v0').genPaddedLeft(32);
-var client = new pollenium_anemone_1.Client(__assign(__assign({}, pollenium_anemone_1.clientDefaults), { signalingServerUrls: [
-        ' wss://begonia-us-1.herokuapp.com',
-        ' wss://begonia-us-1.herokuapp.com'
-    ] }));
-function run(struct) {
+var dai = new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(daiHex));
+var usdc = new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(usdcHex));
+var client = new pollenium_anemone_1.Client(params_1.clientStruct);
+var provider = new ethers_1.ethers.providers.InfuraProvider('homestead', infuraId);
+var bellflower = new pollenium_bellflower_1.Bellflower(provider);
+var block = null;
+bellflower.blockSnowdrop.addHandle(function (_block) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        block = _block;
+        return [2 /*return*/];
+    });
+}); });
+function broadcast() {
     return __awaiter(this, void 0, void 0, function () {
-        var infuraId, quotToken, variToken, provider, bellflower;
-        var _this = this;
+        var orderStruct, order, signedOrder, ligma, missiveGenerator, missive;
         return __generator(this, function (_a) {
-            infuraId = struct.infuraId, quotToken = struct.quotToken, variToken = struct.variToken;
-            provider = new ethers_1.ethers.providers.InfuraProvider('homestead', infuraId);
-            bellflower = new pollenium_bellflower_1.Bellflower(provider);
-            bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(_this, void 0, void 0, function () {
-                var orderStruct, order, signedOrder, ligma, missiveGenerator, missive;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            orderStruct = {
-                                type: pollenium_orchid_1.ORDER_TYPE.BUYY,
-                                prevBlockHash: block.hash,
-                                quotToken: quotToken,
-                                variToken: variToken,
-                                priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-                                priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-                                tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1)
-                            };
-                            order = new pollenium_orchid_1.Order(orderStruct);
-                            signedOrder = new pollenium_orchid_1.SignedOrder(order, keypair.getSignature(order.getSugmaHash()));
-                            ligma = signedOrder.getLigma();
-                            missiveGenerator = new pollenium_anemone_1.MissiveGenerator({
-                                applicationId: applicationId,
-                                applicationData: ligma,
-                                difficulty: 1,
-                                ttl: 30,
-                                hashcashWorkerUrl: require.resolve('pollenium-anemone/node/src/hashcash-worker.js')
-                            });
-                            return [4 /*yield*/, missiveGenerator.fetchMissive()];
-                        case 1:
-                            missive = _a.sent();
-                            client.broadcastMissive(missive);
-                            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, delay_1["default"](1000)];
+                case 1:
+                    _a.sent();
+                    if (block === null) {
+                        console.log('no block');
+                        return [2 /*return*/];
                     }
-                });
-            }); });
-            return [2 /*return*/];
+                    orderStruct = {
+                        type: pollenium_orchid_1.ORDER_TYPE.BUYY,
+                        prevBlockHash: block.hash,
+                        quotToken: dai,
+                        variToken: usdc,
+                        priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
+                        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
+                        tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1)
+                    };
+                    order = new pollenium_orchid_1.Order(orderStruct);
+                    signedOrder = new pollenium_orchid_1.SignedOrder({
+                        order: order,
+                        signature: keypair.getSignature(order.getSugmaHash())
+                    });
+                    ligma = signedOrder.getLigma();
+                    missiveGenerator = new pollenium_anemone_1.MissiveGenerator({
+                        applicationId: params_1.applicationId,
+                        applicationData: ligma,
+                        difficulty: 1,
+                        ttl: 30,
+                        hashcashWorkerUrl: require.resolve('pollenium-anemone/node/src/hashcash-worker.js')
+                    });
+                    console.log('generate missive');
+                    return [4 /*yield*/, missiveGenerator.fetchMissive()];
+                case 2:
+                    missive = _a.sent();
+                    console.log('broadcast');
+                    client.broadcastMissive(missive);
+                    return [4 /*yield*/, delay_1["default"](1000)];
+                case 3:
+                    _a.sent();
+                    return [4 /*yield*/, broadcast()];
+                case 4:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     });
 }
-exports.run = run;
-run({
-    infuraId: infuraId,
-    quotToken: new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(daiHex)),
-    variToken: new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(usdcHex))
-})["catch"](function (error) {
-    console.error(error);
-});
+exports.broadcast = broadcast;
+broadcast();
+setInterval(function () {
+    var connectedFriendshipsCount = client.getSummary().struct.partySummary.getFriendshipsCountByStatus(pollenium_anemone_1.FRIENDSHIP_STATUS.CONNECTED);
+    console.log('connected friendships:', connectedFriendshipsCount);
+}, 1000);
