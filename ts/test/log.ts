@@ -1,6 +1,6 @@
 import { Client, MissiveGenerator, clientDefaults, FRIENDSHIP_STATUS } from 'pollenium-anemone'
 import { Uu } from 'pollenium-uvaursi'
-import { applicationId, clientStruct } from '../params'
+import { applicationId, clientStruct } from '../bin/lib/params'
 import { SignedOrder } from 'pollenium-orchid'
 
 const client = new Client(clientStruct)

@@ -25,13 +25,18 @@
   "dependencies": {
     "@types/node": "^13.1.8",
     "delay": "^4.3.0",
-    "ethers": "^4.0.43",
+    "ethers": "^4.0.45",
     "forever": "^2.0.0",
+    "pollenium-alchemilla": "^12.2.0",
     "pollenium-anemone": "^7.1.1",
     "pollenium-bellflower": "^3.0.0",
-    "pollenium-buttercup": "^18.4.0",
+    "pollenium-buttercup": "^19.2.0",
+    "pollenium-honesty": "^1.0.2",
     "pollenium-ilex": "^9.0.0",
     "pollenium-orchid": "^11.0.0",
-    "pollenium-uvaursi": "^8.5.0"
+    "pollenium-uvaursi": "^8.5.0",
+    "pollenium-xanthoceras": "^4.1.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   }
 }

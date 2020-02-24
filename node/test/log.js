@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var pollenium_anemone_1 = require("pollenium-anemone");
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
-var params_1 = require("../params");
+var params_1 = require("../bin/lib/params");
 var pollenium_orchid_1 = require("pollenium-orchid");
 var client = new pollenium_anemone_1.Client(params_1.clientStruct);
 client.missiveSnowdrop.addHandle(function (missive) {
