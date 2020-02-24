@@ -3,18 +3,16 @@ import { Address, Uint256, Bytes32 } from 'pollenium-buttercup'
 import { Order, SignedOrder, ORDER_TYPE, OrderStruct } from 'pollenium-alchemilla'
 import { Keypair } from 'pollenium-ilex'
 import { Client, MissiveGenerator, clientDefaults, FRIENDSHIP_STATUS } from 'pollenium-anemone'
-import { Uu } from 'pollenium-uvaursi'
 import { applicationId, clientStruct } from './lib/params'
 import delay from 'delay'
 import { fetchPredictitMarket, PredictitMarket } from './lib/fetchPredictitMarket'
 import { fetchBopPair, BopPair } from './lib/fetchBopPair'
 import { provider } from './lib/provider'
+import { dai } from './lib/dai'
 
-const daiHex = '6B175474E89094C44Da98b954EedeAC495271d0F'
 const e18 = new Uint256(10).opPow(18)
 
 const keypair = Keypair.generate()
-const dai = new Address(Uu.fromHexish(daiHex))
 
 const client = new Client(clientStruct)
 

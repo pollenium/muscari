@@ -41,15 +41,13 @@ var pollenium_buttercup_1 = require("pollenium-buttercup");
 var pollenium_alchemilla_1 = require("pollenium-alchemilla");
 var pollenium_ilex_1 = require("pollenium-ilex");
 var pollenium_anemone_1 = require("pollenium-anemone");
-var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var params_1 = require("./lib/params");
 var fetchPredictitMarket_1 = require("./lib/fetchPredictitMarket");
 var fetchBopPair_1 = require("./lib/fetchBopPair");
 var provider_1 = require("./lib/provider");
-var daiHex = '6B175474E89094C44Da98b954EedeAC495271d0F';
+var dai_1 = require("./lib/dai");
 var e18 = new pollenium_buttercup_1.Uint256(10).opPow(18);
 var keypair = pollenium_ilex_1.Keypair.generate();
-var dai = new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(daiHex));
 var client = new pollenium_anemone_1.Client(params_1.clientStruct);
 var bellflower = new pollenium_bellflower_1.Bellflower(provider_1.provider);
 var predictitMarket = null;
@@ -87,7 +85,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
                         prevBlockHash: block.hash,
-                        quotToken: dai,
+                        quotToken: dai_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesBuyUsd),
                         priceDenom: 1,
@@ -96,7 +94,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
                         prevBlockHash: block.hash,
-                        quotToken: dai,
+                        quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noBuyUsd),
                         priceDenom: 1,
@@ -105,7 +103,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
                         prevBlockHash: block.hash,
-                        quotToken: dai,
+                        quotToken: dai_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesSellUsd),
                         priceDenom: 1,
@@ -114,7 +112,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
                         prevBlockHash: block.hash,
-                        quotToken: dai,
+                        quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noSellUsd),
                         priceDenom: 1,
