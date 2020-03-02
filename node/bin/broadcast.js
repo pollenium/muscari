@@ -46,22 +46,35 @@ var fetchPredictitMarket_1 = require("./lib/fetchPredictitMarket");
 var fetchBopPair_1 = require("./lib/fetchBopPair");
 var provider_1 = require("./lib/provider");
 var dai_1 = require("./lib/dai");
+var pollenium_xanthoceras_1 = require("pollenium-xanthoceras");
 var e18 = new pollenium_buttercup_1.Uint256(10).opPow(18);
 var keypair = pollenium_ilex_1.Keypair.generate();
 var client = new pollenium_anemone_1.Client(params_1.clientStruct);
 var bellflower = new pollenium_bellflower_1.Bellflower(provider_1.provider);
+var engineReader = new pollenium_alchemilla_1.EngineReader({
+    provider: provider_1.provider,
+    address: pollenium_xanthoceras_1.xanthoceras.get('engine')
+});
 var predictitMarket = null;
 var bopPair = null;
+var orderSalt = null;
 function usdToDai(usd) {
     var usc = Math.round(usd * 100);
     return e18.opMul(usc).opDiv(100);
 }
+engineReader.fetchOrderSalt().then(function (_orderSalt) {
+    orderSalt = _orderSalt;
+});
 bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, void 0, void 0, function () {
     var contract, step, yesBuyUsd, yesSellUsd, noBuyUsd, noSellUsd, orderStructs, i, orderStruct, order, signedOrder, ligma, missiveGenerator, missive;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 console.log('block', block.number);
+                if (orderSalt === null) {
+                    console.log('no order salt');
+                    return [2 /*return*/];
+                }
                 if (predictitMarket === null) {
                     console.log('no predictitMarket');
                     return [2 /*return*/];
@@ -83,8 +96,9 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                 noSellUsd = contract.pairPrices.no.sell + (.01 * step);
                 orderStructs = [
                     {
+                        salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
-                        prevBlockHash: block.hash,
+                        blockNumber: block.number + 2,
                         quotToken: dai_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesBuyUsd),
@@ -92,8 +106,9 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         tokenLimit: e18
                     },
                     {
+                        salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
-                        prevBlockHash: block.hash,
+                        blockNumber: block.number + 2,
                         quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noBuyUsd),
@@ -101,8 +116,9 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         tokenLimit: e18
                     },
                     {
+                        salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
-                        prevBlockHash: block.hash,
+                        blockNumber: block.number + 2,
                         quotToken: dai_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesSellUsd),
@@ -110,8 +126,9 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         tokenLimit: 1
                     },
                     {
+                        salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
-                        prevBlockHash: block.hash,
+                        blockNumber: block.number + 2,
                         quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noSellUsd),
