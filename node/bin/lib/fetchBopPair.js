@@ -46,7 +46,7 @@ function fetchBopPair(overseerSlug) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    console.log('overseerSlug', overseerSlug, pollenium_xanthoceras_1.xanthoceras.get("overseer." + overseerSlug));
+                    console.log('overseerSlug', overseerSlug, pollenium_xanthoceras_1.xanthoceras.get("overseer." + overseerSlug).toHex());
                     overseer = new pollenium_buttercup_1.Address(pollenium_xanthoceras_1.xanthoceras.get("overseer." + overseerSlug));
                     overseerReader = new pollenium_honesty_1.OverseerReader({
                         provider: provider_1.provider,

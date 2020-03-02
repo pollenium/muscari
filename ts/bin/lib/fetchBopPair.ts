@@ -11,7 +11,7 @@ export interface BopPair {
 
 export async function fetchBopPair (overseerSlug: string): Promise<BopPair> {
 
-  console.log('overseerSlug', overseerSlug, xanthoceras.get(`overseer.${overseerSlug}`))
+  console.log('overseerSlug', overseerSlug, xanthoceras.get(`overseer.${overseerSlug}`).toHex())
 
   const overseer = new Address(xanthoceras.get(`overseer.${overseerSlug}`))
 
