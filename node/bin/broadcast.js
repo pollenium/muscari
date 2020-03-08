@@ -53,7 +53,7 @@ var client = new pollenium_anemone_1.Client(params_1.clientStruct);
 var bellflower = new pollenium_bellflower_1.Bellflower(provider_1.provider);
 var engineReader = new pollenium_alchemilla_1.EngineReader({
     provider: provider_1.provider,
-    address: pollenium_xanthoceras_1.xanthoceras.get('engine')
+    address: pollenium_xanthoceras_1.engine
 });
 var predictitMarket = null;
 var bopPair = null;
@@ -190,7 +190,7 @@ function setPredictitMarket() {
         });
     });
 }
-fetchBopPair_1.fetchBopPair('2020.trump').then(function (_bopPair) {
+fetchBopPair_1.fetchBopPair(pollenium_xanthoceras_1.overseers.trump2020).then(function (_bopPair) {
     bopPair = _bopPair;
 });
 setPredictitMarket();

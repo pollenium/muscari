@@ -9,7 +9,7 @@ import { fetchPredictitMarket, PredictitMarket } from './lib/fetchPredictitMarke
 import { fetchBopPair, BopPair } from './lib/fetchBopPair'
 import { provider } from './lib/provider'
 import { dai } from './lib/dai'
-import { xanthoceras } from 'pollenium-xanthoceras'
+import { engine, overseers } from 'pollenium-xanthoceras'
 
 const e18 = new Uint256(10).opPow(18)
 
@@ -20,7 +20,7 @@ const client = new Client(clientStruct)
 const bellflower = new Bellflower(provider)
 const engineReader = new EngineReader({
   provider,
-  address: xanthoceras.get('engine')
+  address: engine
 })
 
 let predictitMarket: PredictitMarket | null = null
@@ -145,7 +145,7 @@ async function setPredictitMarket() {
   }
 }
 
-fetchBopPair('2020.trump').then((_bopPair) => {
+fetchBopPair(overseers.trump2020).then((_bopPair) => {
   bopPair = _bopPair
 })
 

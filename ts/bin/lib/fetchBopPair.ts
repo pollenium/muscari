@@ -1,7 +1,7 @@
-import { xanthoceras } from 'pollenium-xanthoceras'
 import { Address } from 'pollenium-buttercup'
 import { OverseerReader } from 'pollenium-honesty'
 import { provider } from './provider'
+import { Uish } from 'pollenium-uvaursi'
 
 export interface BopPair {
   agree: Address,
@@ -9,11 +9,9 @@ export interface BopPair {
 }
 
 
-export async function fetchBopPair (overseerSlug: string): Promise<BopPair> {
+export async function fetchBopPair (overseerUish: Uish): Promise<BopPair> {
 
-  console.log('overseerSlug', overseerSlug, xanthoceras.get(`overseer.${overseerSlug}`).toHex())
-
-  const overseer = new Address(xanthoceras.get(`overseer.${overseerSlug}`))
+  const overseer = new Address(overseerUish)
 
   const overseerReader = new OverseerReader({
     provider,

@@ -36,18 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var pollenium_xanthoceras_1 = require("pollenium-xanthoceras");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var pollenium_honesty_1 = require("pollenium-honesty");
 var provider_1 = require("./provider");
-function fetchBopPair(overseerSlug) {
+function fetchBopPair(overseerUish) {
     return __awaiter(this, void 0, void 0, function () {
         var overseer, overseerReader, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    console.log('overseerSlug', overseerSlug, pollenium_xanthoceras_1.xanthoceras.get("overseer." + overseerSlug).toHex());
-                    overseer = new pollenium_buttercup_1.Address(pollenium_xanthoceras_1.xanthoceras.get("overseer." + overseerSlug));
+                    overseer = new pollenium_buttercup_1.Address(overseerUish);
                     overseerReader = new pollenium_honesty_1.OverseerReader({
                         provider: provider_1.provider,
                         address: overseer
