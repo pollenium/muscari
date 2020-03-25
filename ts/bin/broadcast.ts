@@ -1,6 +1,6 @@
 import { Bellflower, Block } from 'pollenium-bellflower'
 import { Address, Uint256, Bytes32 } from 'pollenium-buttercup'
-import { Order, SignedOrder, ORDER_TYPE, OrderStruct, EngineReader } from 'pollenium-alchemilla'
+import { Order, SignedOrder, OrderDirection, OrderStruct, EngineReader } from 'pollenium-alchemilla'
 import { Keypair } from 'pollenium-ilex'
 import { Client, MissiveGenerator, clientDefaults, FRIENDSHIP_STATUS } from 'pollenium-anemone'
 import { applicationId, clientStruct } from './lib/params'
@@ -69,7 +69,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
     const orderStructs: Array<OrderStruct> = [
       {
         salt: orderSalt,
-        type: ORDER_TYPE.BUYY,
+        type: OrderDirection.BUYY,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.agree,
@@ -79,7 +79,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       },
       {
         salt: orderSalt,
-        type: ORDER_TYPE.BUYY,
+        type: OrderDirection.BUYY,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.disagree,
@@ -89,7 +89,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       },
       {
         salt: orderSalt,
-        type: ORDER_TYPE.SELL,
+        type: OrderDirection.SELL,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.agree,
@@ -99,7 +99,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       },
       {
         salt: orderSalt,
-        type: ORDER_TYPE.SELL,
+        type: OrderDirection.SELL,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.disagree,

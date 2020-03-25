@@ -97,7 +97,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                 orderStructs = [
                     {
                         salt: orderSalt,
-                        type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
+                        type: pollenium_alchemilla_1.OrderDirection.BUYY,
                         expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.agree,
@@ -107,7 +107,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     },
                     {
                         salt: orderSalt,
-                        type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
+                        type: pollenium_alchemilla_1.OrderDirection.BUYY,
                         expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
@@ -117,7 +117,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     },
                     {
                         salt: orderSalt,
-                        type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
+                        type: pollenium_alchemilla_1.OrderDirection.SELL,
                         expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.agree,
@@ -127,7 +127,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     },
                     {
                         salt: orderSalt,
-                        type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
+                        type: pollenium_alchemilla_1.OrderDirection.SELL,
                         expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
