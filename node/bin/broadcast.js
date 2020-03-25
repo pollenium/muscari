@@ -98,7 +98,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
-                        blockNumber: block.number + 2,
+                        expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesBuyUsd),
@@ -108,7 +108,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.BUYY,
-                        blockNumber: block.number + 2,
+                        expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noBuyUsd),
@@ -118,7 +118,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
-                        blockNumber: block.number + 2,
+                        expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesSellUsd),
@@ -128,7 +128,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         type: pollenium_alchemilla_1.ORDER_TYPE.SELL,
-                        blockNumber: block.number + 2,
+                        expiration: block.number.opAdd(2),
                         quotToken: dai_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noSellUsd),

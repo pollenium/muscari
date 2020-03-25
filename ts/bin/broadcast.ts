@@ -70,7 +70,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         type: ORDER_TYPE.BUYY,
-        blockNumber: block.number + 2,
+        expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.agree,
         priceNumer: usdToDai(yesBuyUsd),
@@ -80,7 +80,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         type: ORDER_TYPE.BUYY,
-        blockNumber: block.number + 2,
+        expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.disagree,
         priceNumer: usdToDai(noBuyUsd),
@@ -90,7 +90,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         type: ORDER_TYPE.SELL,
-        blockNumber: block.number + 2,
+        expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.agree,
         priceNumer: usdToDai(yesSellUsd),
@@ -100,7 +100,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         type: ORDER_TYPE.SELL,
-        blockNumber: block.number + 2,
+        expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.disagree,
         priceNumer: usdToDai(noSellUsd),
