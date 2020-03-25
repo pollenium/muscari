@@ -37,7 +37,7 @@ engineReader.fetchOrderSalt().then((_orderSalt) => {
 })
 
 bellflower.blockSnowdrop.addHandle(async (block) => {
-  console.log('block', block.number)
+  console.log('block', block.number.toNumberString(10))
 
   if (orderSalt === null) {
     console.log('no order salt')

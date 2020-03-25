@@ -70,7 +70,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('block', block.number);
+                console.log('block', block.number.toNumberString(10));
                 if (orderSalt === null) {
                     console.log('no order salt');
                     return [2 /*return*/];
