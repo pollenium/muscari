@@ -69,7 +69,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
     const orderStructs: Array<OrderStruct> = [
       {
         salt: orderSalt,
-        type: OrderDirection.BUYY,
+        direction: OrderDirection.BUYY,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.agree,
@@ -79,7 +79,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       },
       {
         salt: orderSalt,
-        type: OrderDirection.BUYY,
+        direction: OrderDirection.BUYY,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.disagree,
@@ -89,7 +89,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       },
       {
         salt: orderSalt,
-        type: OrderDirection.SELL,
+        direction: OrderDirection.SELL,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.agree,
@@ -99,7 +99,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       },
       {
         salt: orderSalt,
-        type: OrderDirection.SELL,
+        direction: OrderDirection.SELL,
         expiration: block.number.opAdd(2),
         quotToken: dai,
         variToken: bopPair.disagree,
