@@ -39,30 +39,23 @@ exports.__esModule = true;
 var pollenium_bellflower_1 = require("pollenium-bellflower");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var pollenium_alchemilla_1 = require("pollenium-alchemilla");
-var pollenium_ilex_1 = require("pollenium-ilex");
 var pollenium_anemone_1 = require("pollenium-anemone");
+var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var params_1 = require("./lib/params");
 var fetchPredictitMarket_1 = require("./lib/fetchPredictitMarket");
 var fetchBopPair_1 = require("./lib/fetchBopPair");
 var provider_1 = require("./lib/provider");
-var dai_1 = require("./lib/dai");
+var maker_1 = require("./lib/maker");
 var pollenium_xanthoceras_1 = require("pollenium-xanthoceras");
+var engineReader_1 = require("./lib/engineReader");
 var e18 = new pollenium_buttercup_1.Uint256(10).opPow(18);
-var keypair = pollenium_ilex_1.Keypair.generate();
+var uint256Max = new pollenium_buttercup_1.Uint256(pollenium_uvaursi_1.Uu.genFill({ length: 32, fill: 255 }));
 var client = new pollenium_anemone_1.Client(params_1.clientStruct);
 var bellflower = new pollenium_bellflower_1.Bellflower(provider_1.provider);
-var engineReader = new pollenium_alchemilla_1.EngineReader({
-    provider: provider_1.provider,
-    address: pollenium_xanthoceras_1.engine
-});
 var predictitMarket = null;
 var bopPair = null;
 var orderSalt = null;
-function usdToDai(usd) {
-    var usc = Math.round(usd * 100);
-    return e18.opMul(usc).opDiv(100);
-}
-engineReader.fetchOrderSalt().then(function (_orderSalt) {
+engineReader_1.engineReader.fetchOrderSalt().then(function (_orderSalt) {
     orderSalt = _orderSalt;
 });
 bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, void 0, void 0, function () {
@@ -99,7 +92,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.BUYY,
                         expiration: block.number.opAdd(2),
-                        quotToken: dai_1.dai,
+                        quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesBuyUsd),
                         priceDenom: 1,
@@ -109,7 +102,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.BUYY,
                         expiration: block.number.opAdd(2),
-                        quotToken: dai_1.dai,
+                        quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noBuyUsd),
                         priceDenom: 1,
@@ -119,7 +112,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.SELL,
                         expiration: block.number.opAdd(2),
-                        quotToken: dai_1.dai,
+                        quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesSellUsd),
                         priceDenom: 1,
@@ -129,7 +122,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.SELL,
                         expiration: block.number.opAdd(2),
-                        quotToken: dai_1.dai,
+                        quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noSellUsd),
                         priceDenom: 1,
@@ -144,7 +137,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                 order = new pollenium_alchemilla_1.Order(orderStruct);
                 signedOrder = new pollenium_alchemilla_1.SignedOrder({
                     order: order,
-                    signature: keypair.getSignature(order.getSugmaHash())
+                    signature: maker_1.makerKeypair.getSignature(order.getSugmaHash())
                 });
                 ligma = signedOrder.getLigma();
                 missiveGenerator = new pollenium_anemone_1.MissiveGenerator({
@@ -189,6 +182,10 @@ function setPredictitMarket() {
             }
         });
     });
+}
+function usdToDai(usd) {
+    var usc = Math.round(usd * 100);
+    return e18.opMul(usc).opDiv(100);
 }
 fetchBopPair_1.fetchBopPair(pollenium_xanthoceras_1.overseers.trump2020).then(function (_bopPair) {
     bopPair = _bopPair;

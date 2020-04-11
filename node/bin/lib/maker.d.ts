@@ -1,0 +1,11 @@
+import { Bytes32 } from 'pollenium-buttercup';
+import { Keypair } from 'pollenium-ilex';
+import { ethers } from 'ethers';
+import { EngineWriter } from 'pollenium-alchemilla';
+import { TokenWriter } from 'pollenium-toadflax';
+export declare const makerPrivateKey: Bytes32;
+export declare const makerKeypair: Keypair;
+export declare const maker: import("pollenium-buttercup").Address;
+export declare const makerSigner: ethers.Wallet;
+export declare const makerEngineWriter: EngineWriter;
+export declare const makerDaiWriter: TokenWriter;

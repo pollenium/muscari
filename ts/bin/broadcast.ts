@@ -3,34 +3,29 @@ import { Address, Uint256, Bytes32 } from 'pollenium-buttercup'
 import { Order, SignedOrder, OrderDirection, OrderStruct, EngineReader } from 'pollenium-alchemilla'
 import { Keypair } from 'pollenium-ilex'
 import { Client, MissiveGenerator, clientDefaults, FRIENDSHIP_STATUS } from 'pollenium-anemone'
+import { Uu } from 'pollenium-uvaursi'
 import { applicationId, clientStruct } from './lib/params'
 import delay from 'delay'
 import { fetchPredictitMarket, PredictitMarket } from './lib/fetchPredictitMarket'
 import { fetchBopPair, BopPair } from './lib/fetchBopPair'
 import { provider } from './lib/provider'
-import { dai } from './lib/dai'
-import { engine, overseers } from 'pollenium-xanthoceras'
+import { makerKeypair } from './lib/maker'
+import { engine, overseers, dai } from 'pollenium-xanthoceras'
+import { engineReader } from './lib/engineReader'
+import ethers from 'ethers'
 
 const e18 = new Uint256(10).opPow(18)
-
-const keypair = Keypair.generate()
+const uint256Max = new Uint256(Uu.genFill({ length: 32, fill: 255 }))
 
 const client = new Client(clientStruct)
 
 const bellflower = new Bellflower(provider)
-const engineReader = new EngineReader({
-  provider,
-  address: engine
-})
+
 
 let predictitMarket: PredictitMarket | null = null
 let bopPair: BopPair | null = null
 let orderSalt: Bytes32 | null = null
 
-function usdToDai(usd: number): Uint256 {
-  const usc = Math.round(usd * 100)
-  return e18.opMul(usc).opDiv(100)
-}
 
 engineReader.fetchOrderSalt().then((_orderSalt) => {
   orderSalt = _orderSalt
@@ -115,7 +110,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
 
       const signedOrder = new SignedOrder({
         order,
-        signature: keypair.getSignature(order.getSugmaHash())
+        signature: makerKeypair.getSignature(order.getSugmaHash())
       })
 
       const ligma = signedOrder.getLigma()
@@ -143,6 +138,11 @@ async function setPredictitMarket() {
   } catch {
     predictitMarket = null
   }
+}
+
+function usdToDai(usd: number): Uint256 {
+  const usc = Math.round(usd * 100)
+  return e18.opMul(usc).opDiv(100)
 }
 
 fetchBopPair(overseers.trump2020).then((_bopPair) => {
