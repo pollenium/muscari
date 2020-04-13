@@ -26,6 +26,8 @@ let predictitMarket: PredictitMarket | null = null
 let bopPair: BopPair | null = null
 let orderSalt: Bytes32 | null = null
 
+let prevExpiration: Uint256 | null = null
+
 
 engineReader.fetchOrderSalt().then((_orderSalt) => {
   orderSalt = _orderSalt
@@ -33,6 +35,10 @@ engineReader.fetchOrderSalt().then((_orderSalt) => {
 
 bellflower.blockSnowdrop.addHandle(async (block) => {
   console.log('block', block.number.toNumberString(10))
+  if (prevExpiration !== null && block.number.compLt(prevExpiration)) {
+    console.log('await prevExpiration')
+    return
+  }
 
   if (orderSalt === null) {
     console.log('no order salt')
@@ -54,6 +60,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
   })
 
   const expiration = block.number.opAdd(10)
+  prevExpiration = expiration
 
   for (let step = 0; step < 5; step ++) {
 

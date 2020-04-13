@@ -55,6 +55,7 @@ var bellflower = new pollenium_bellflower_1.Bellflower(provider_1.provider);
 var predictitMarket = null;
 var bopPair = null;
 var orderSalt = null;
+var prevExpiration = null;
 engineReader_1.engineReader.fetchOrderSalt().then(function (_orderSalt) {
     orderSalt = _orderSalt;
 });
@@ -64,6 +65,10 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
         switch (_a.label) {
             case 0:
                 console.log('block', block.number.toNumberString(10));
+                if (prevExpiration !== null && block.number.compLt(prevExpiration)) {
+                    console.log('await prevExpiration');
+                    return [2 /*return*/];
+                }
                 if (orderSalt === null) {
                     console.log('no order salt');
                     return [2 /*return*/];
@@ -80,6 +85,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     return contract.shortName === 'Trump';
                 });
                 expiration = block.number.opAdd(10);
+                prevExpiration = expiration;
                 step = 0;
                 _a.label = 1;
             case 1:
