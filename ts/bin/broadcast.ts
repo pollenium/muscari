@@ -53,6 +53,8 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
     return contract.shortName === 'Trump'
   })
 
+  const expiration = block.number.opAdd(10)
+
   for (let step = 0; step < 5; step ++) {
 
     const yesBuyUsd = contract.pairPrices.yes.buy - (.01 * step)
@@ -65,7 +67,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         direction: OrderDirection.BUYY,
-        expiration: block.number.opAdd(2),
+        expiration: expiration,
         quotToken: dai,
         variToken: bopPair.agree,
         priceNumer: usdToDai(yesBuyUsd),
@@ -75,7 +77,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         direction: OrderDirection.BUYY,
-        expiration: block.number.opAdd(2),
+        expiration: expiration,
         quotToken: dai,
         variToken: bopPair.disagree,
         priceNumer: usdToDai(noBuyUsd),
@@ -85,7 +87,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         direction: OrderDirection.SELL,
-        expiration: block.number.opAdd(2),
+        expiration: expiration,
         quotToken: dai,
         variToken: bopPair.agree,
         priceNumer: usdToDai(yesSellUsd),
@@ -95,7 +97,7 @@ bellflower.blockSnowdrop.addHandle(async (block) => {
       {
         salt: orderSalt,
         direction: OrderDirection.SELL,
-        expiration: block.number.opAdd(2),
+        expiration: expiration,
         quotToken: dai,
         variToken: bopPair.disagree,
         priceNumer: usdToDai(noSellUsd),
