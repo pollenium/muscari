@@ -59,7 +59,7 @@ engineReader_1.engineReader.fetchOrderSalt().then(function (_orderSalt) {
     orderSalt = _orderSalt;
 });
 bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, void 0, void 0, function () {
-    var contract, step, yesBuyUsd, yesSellUsd, noBuyUsd, noSellUsd, orderStructs, i, orderStruct, order, signedOrder, ligma, missiveGenerator, missive;
+    var contract, expiration, step, yesBuyUsd, yesSellUsd, noBuyUsd, noSellUsd, orderStructs, i, orderStruct, order, signedOrder, ligma, missiveGenerator, missive;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -79,6 +79,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                 contract = predictitMarket.contracts.find(function (contract) {
                     return contract.shortName === 'Trump';
                 });
+                expiration = block.number.opAdd(10);
                 step = 0;
                 _a.label = 1;
             case 1:
@@ -91,7 +92,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.BUYY,
-                        expiration: block.number.opAdd(2),
+                        expiration: expiration,
                         quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesBuyUsd),
@@ -101,7 +102,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.BUYY,
-                        expiration: block.number.opAdd(2),
+                        expiration: expiration,
                         quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noBuyUsd),
@@ -111,7 +112,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.SELL,
-                        expiration: block.number.opAdd(2),
+                        expiration: expiration,
                         quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.agree,
                         priceNumer: usdToDai(yesSellUsd),
@@ -121,7 +122,7 @@ bellflower.blockSnowdrop.addHandle(function (block) { return __awaiter(void 0, v
                     {
                         salt: orderSalt,
                         direction: pollenium_alchemilla_1.OrderDirection.SELL,
-                        expiration: block.number.opAdd(2),
+                        expiration: expiration,
                         quotToken: pollenium_xanthoceras_1.dai,
                         variToken: bopPair.disagree,
                         priceNumer: usdToDai(noSellUsd),
